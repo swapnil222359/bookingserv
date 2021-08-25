@@ -22,11 +22,10 @@
     "date_of_birth": {
       "description": "Date of birth",
       "type": "string",
-      "format": "date",
-      "custom-pattern": "MM-DD-YYYY"
+      "format": "date"
     },
     "checkin_datetime": {
-      "description": "checkout_datetime",
+      "description": "checkin_datetime",
       "format": "date-time",
       "type": "string"
     },
@@ -38,13 +37,13 @@
     "total_price": {
       "description": "Total price",
       "type": "number",
-      "minimum": 10.5,
+      "minimum": 1,
       "exclusiveMinimum": true
     },
     "deposit": {
       "description": "Deposit",
       "type": "number",
-      "minimum": 10.5,
+      "minimum": 1,
       "exclusiveMinimum": true
     },
     "address": {
@@ -81,11 +80,19 @@
           "minLength": 1,
           "maxLength": 6
         }
-      }
+      },
+      "required": [
+        "line1",
+        "city",
+        "state",
+        "zipcode"
+      ]
     }
   },
   "required": [
     "first_name",
-    "last_name"
+    "last_name",
+    "address",
+    "checkin_datetime"
   ]
 }
