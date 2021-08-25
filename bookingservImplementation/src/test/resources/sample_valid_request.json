@@ -1,0 +1,16 @@
+{
+  "first_name" : "john",
+  "last_name" : "dhj",
+  "date_of_birth":"1993-02-11",
+  "deposit" :"200",
+  "checkin_datetime" : "2021-08-24T15:45:55.222Z",
+  "checkout_datetime" : "2021-08-24T15:45:55.222Z",
+  "total_price": 11,
+  "address" : {
+    "state" : "Kb",
+    "city" : "cit",
+    "zipcode" : "12345",
+    "line1" : "line1",
+    "line2" : "line2"
+  }
+}
