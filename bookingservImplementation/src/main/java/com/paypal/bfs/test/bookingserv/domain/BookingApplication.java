@@ -1,11 +1,12 @@
 package com.paypal.bfs.test.bookingserv.domain;
 
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -14,11 +15,14 @@ public class BookingApplication {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @ToString.Exclude
     private String firstName;
+    @ToString.Exclude
     private String lastName;
+    @ToString.Exclude
     private LocalDate dateOfBirth;
-    private LocalDateTime checkinTime;
-    private LocalDateTime checkoutTime;
+    private Instant checkinTime;
+    private Instant checkoutTime;
     private BigDecimal deposit;
     private BigDecimal totalPrice;
     @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)

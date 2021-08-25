@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Configuration
 @EnableJpaRepositories(basePackages = {"com.paypal.bfs.test.bookingserv.repository"})
-public class ApplicationConfig {
+public class H2Config {
 }

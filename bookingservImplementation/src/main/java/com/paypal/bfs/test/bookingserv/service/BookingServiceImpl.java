@@ -23,8 +23,9 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public Booking create(Booking booking) {
-        bookingRepository.save(createBookingApplication(booking));
-        return null;
+        return Optional.ofNullable(bookingRepository.save(createBookingApplication(booking)))
+                .map(this::mapToBooking)
+                .orElseThrow(() -> new RuntimeException("Cannot save entity"));
     }
 
     @Override
@@ -36,25 +37,25 @@ public class BookingServiceImpl implements BookingService {
                 .collect(Collectors.toList());
     }
 
-    private Booking mapToBooking(BookingApplication bookingApplication) {
+    private Booking mapToBooking(BookingApplication application) {
 
         Booking booking = new Booking();
-        booking.setId(bookingApplication.getId());
-        booking.setFirstName(bookingApplication.getFirstName());
-        booking.setLastName(bookingApplication.getLastName());
-        booking.setCheckinDatetime(bookingApplication.getCheckinTime());
-        booking.setCheckoutDatetime(bookingApplication.getCheckoutTime());
-        booking.setDateOfBirth(bookingApplication.getDateOfBirth());
-        booking.setDeposit(bookingApplication.getDeposit());
-        booking.setTotalPrice(bookingApplication.getTotalPrice());
+        booking.setId(application.getId());
+        booking.setFirstName(application.getFirstName());
+        booking.setLastName(application.getLastName());
+        booking.setCheckinDatetime(application.getCheckinTime());
+        booking.setCheckoutDatetime(application.getCheckoutTime());
+        booking.setDateOfBirth(application.getDateOfBirth());
+        booking.setDeposit(application.getDeposit());
+        booking.setTotalPrice(application.getTotalPrice());
         com.paypal.bfs.test.bookingserv.api.model.Address address = new com.paypal.bfs.test.bookingserv.api.model.Address();
-        Optional.ofNullable(bookingApplication.getAddress())
+        Optional.ofNullable(application.getAddress())
                 .ifPresent(savedAddress -> {
                     address.setState(savedAddress.getState());
-                    address.setState(savedAddress.getCity());
-                    address.setState(savedAddress.getLine1());
-                    address.setState(savedAddress.getLine2());
-                    address.setState(savedAddress.getZipCode());
+                    address.setCity(savedAddress.getCity());
+                    address.setLine1(savedAddress.getLine1());
+                    address.setLine2(savedAddress.getLine2());
+                    address.setZipcode(savedAddress.getZipCode());
                     booking.setAddress(address);
                 });
 
@@ -62,14 +63,25 @@ public class BookingServiceImpl implements BookingService {
     }
 
     private BookingApplication createBookingApplication(Booking booking) {
+
         BookingApplication bookingApplication = new BookingApplication();
         bookingApplication.setFirstName(booking.getFirstName());
         bookingApplication.setLastName(booking.getLastName());
-        Address address = new Address();
-        address.setState(booking.getAddress().getState());
-        bookingApplication.setAddress(address);
+        bookingApplication.setCheckinTime(booking.getCheckinDatetime());
+        bookingApplication.setCheckoutTime(booking.getCheckoutDatetime());
+        bookingApplication.setTotalPrice(booking.getTotalPrice());
+        bookingApplication.setDateOfBirth(booking.getDateOfBirth());
+        bookingApplication.setDeposit(booking.getDeposit());
+        Optional.ofNullable(booking.getAddress())
+                .ifPresent(addressRequest -> {
+                    Address address = new Address();
+                    address.setState(addressRequest.getState());
+                    address.setCity(addressRequest.getCity());
+                    address.setLine1(addressRequest.getLine1());
+                    address.setLine2(addressRequest.getLine2());
+                    address.setZipCode(addressRequest.getZipcode());
+                    bookingApplication.setAddress(address);
+                });
         return bookingApplication;
-
-
     }
 }

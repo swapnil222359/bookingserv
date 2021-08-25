@@ -1,9 +1,10 @@
-package com.paypal.bfs.test.bookingserv.impl;
+package com.paypal.bfs.test.bookingserv.resource;
 
 import com.paypal.bfs.test.bookingserv.api.BookingResource;
 import com.paypal.bfs.test.bookingserv.api.model.Booking;
 import com.paypal.bfs.test.bookingserv.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,7 +22,7 @@ public class BookingResourceImpl implements BookingResource {
 
     @Override
     public ResponseEntity<Booking> create(Booking booking) {
-        return ResponseEntity.ok(bookingService.create(booking));
+        return new ResponseEntity<>(bookingService.create(booking), HttpStatus.CREATED);
     }
 
     @Override
