@@ -64,7 +64,7 @@
                     <includeAdditionalProperties>false</includeAdditionalProperties>
                     <includeJsr303Annotations>true</includeJsr303Annotations>
                     <useBigDecimals>true</useBigDecimals>
-                    <dateTimeType>java.time.LocalDateTime</dateTimeType>
+                    <dateTimeType>java.time.Instant</dateTimeType>
                     <dateType>java.time.LocalDate</dateType>
                     <formatDates>true</formatDates>
                     <formatDateTimes>true</formatDateTimes>
